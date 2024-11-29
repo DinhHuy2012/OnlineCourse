@@ -1,0 +1,20 @@
+/* Định vị thông báo ở góc phải trên */
+#success-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Đảm bảo thông báo nằm trên các phần tử khác */
+}
+
+/* Thêm hiệu ứng fade out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+

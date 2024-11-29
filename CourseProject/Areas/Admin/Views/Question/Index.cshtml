@@ -1,0 +1,309 @@
+﻿
+@model PagedList.IPagedList<Model.Model.Question>
+
+
+@{
+    ViewBag.Title = "Quản trị câu hỏi ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var productList = (List<Model.Model.Product>)ViewBag.productID;
+
+}
+@section Childcss
+{
+
+    <!-- Table datatable css -->
+    <link href="~/assets/admin/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/datatables/scroller.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- App css -->
+    <link href="~/assets/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Danh sách câu hỏi </h4>
+            <table style="width:100%;">
+                <tr>
+
+
+                    <td style="text-align: left;">
+                        <button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-xl">Thêm mới</button>
+
+                    </td>
+                </tr>
+
+            </table>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nội dung câu hỏi  </th>
+                                    <th>List câu trả lời  </th>
+                                    <th>Đáp án </th>
+                                    <th>Số đáp án </th>
+                                    <th>Khóa học </th>
+                                    <th>Trạng thái </th>
+                                    <th> </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="row_@item.Id">
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Content</td>
+                                        <td>@item.Answer</td>
+                                        <td>@item.Type</td>
+
+                                        <td>
+                                            @foreach (var itemproduct in productList)
+                                            {
+                                                if (itemproduct.Id == @item.ProductID)
+                                                {
+                                                    @itemproduct.Name;
+                                                }
+                                            }
+                                        <td>
+                                            <a href="" class="badge bg-info">
+                                                @Html.Raw(item.Status == true ? "<strong>Kích hoạt</strong>" : "<font style='color:red;'>Khóa </font>")
+                                            </a>
+                                        </td>
+                                        <td style="text-align:center;width:15px;vertical-align:middle;">
+                                            @Ajax.ActionLink("Xóa tài khoản", "Delete", new { @id = item.Id }, new AjaxOptions
+                                            {
+                                                 Confirm = "Bạn có muốn xóa không ?",
+                                                 OnComplete = "$('#row_" + item.Id + "').remove()",
+                                                HttpMethod = "Delete"
+                                            },
+                                                 new
+                                                      {
+                                                          @class = "badge badge-danger"
+                                                 })
+
+                                        </td>
+                                        <td style="width:10px">
+                                            <a class="badge btn-link" href="#" id="alerts_@item.Id" rolo="button" data-toggle="modal" data-target="#con-close-modal-edit-@item.Id">
+                                                <i class="fas fa-user-edit"></i>
+                                            </a>
+                                            <div id="con-close-modal-edit-@item.Id" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Cập nhật câu hỏi </h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="field-1" class="control-label">Nội dung câu hỏi  </label>
+                                                                        <input type="text" class="form-control" value="@item.Name"  id="e_name_@item.Id" placeholder="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="field-2" class="control-label">List câu hỏi  </label>
+                                                                        <input type="text" class="form-control" id="e_content_@item.Id" value="@item.Content" placeholder="Mật khẩu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="field-3" class="control-label">Câu trả lời </label>
+                                                                        <input type="text" class="form-control" id="e_answer_@item.Id" value="@item.Answer" placeholder="Họ và tên">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                  
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="field-1" class="control-label">
+                                                                            Khóa học hiện tại: @foreach (var item1 in productList)
+                                                                            {
+                                                                                if (item1.Id == @item.ProductID)
+                                                                                {
+                                                                                    <a value="@item1.Id">@item1.Id -  @item1.Name</a>
+                                                                                }                                                                             
+
+                                                                            }
+
+
+
+
+                                                                        </label>
+                                                                        @if (item.Id == @item.ProductID)
+                                                                        {
+                                                                            @item.Name
+                                                                        }
+                                                                        <select class="form-control" id="ddlProduct_@item.Id" placeholder="---Chọn lại khóa học ---">
+                                                                            @foreach (var item1 in productList)
+                                                                            {
+                                                                                if (item1.Id == @item.ProductID)
+                                                                                {
+                                                                                    <option value="@item1.Id" selected="selected">@item1.Id -  @item1.Name</option>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <option value="@item1.Id">@item1.Name</option>
+                                                                                }
+
+
+                                                                            }
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                               
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Thoát</button>
+                                                            <a class="abclaice" data-listid="@item.Id" data-name="e_name_@item.Id" data-content="e_content_@item.Id"
+                                                               data-answer="e_answer_@item.Id" data-productid="ddlProduct_@item.Id" >
+                                                                <input type="submit" id="btnUpdateQuestion" class="btn btn-info waves-effect waves-light" value="Cập nhật" />
+
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.modal -->
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section ClientScript
+
+{
+
+    <script src="~/assets/admin/libs/bootstrap/js/bootbox.min.js"></script>
+
+
+    <script src="~/assets/admin/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/admin/libs/jquery/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/assets/admin/libs/jquery-easing/jquery.easing.min.js"></script>
+
+
+    <!-- third party js -->
+    <script src="~/assets/admin/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/assets/admin/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+    <script src="~/assets/admin/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/buttons.bootstrap4.min.js"></script>
+
+    <script src="~/assets/admin/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/admin/libs/pdfmake/pdfmake.min.js"></script>
+    <script src="~/assets/admin/libs/pdfmake/vfs_fonts.js"></script>
+
+    @*<script src="~/assets/admin/libs/datatables/buttons.html5.min.js"></script>*@
+    <script src="~/assets/admin/libs/datatables/buttons.print.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/dataTables.scroller.min.js"></script>
+
+    <!-- Datatables init -->
+    <script src="~/assets/admin/js/pages/datatables.init.js"></script>
+    <script src="~/assets/admin/controller/questionController.js"></script>
+}
+<div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="myExtraLargeModalLabel">Thêm câu hỏi </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Nội dung câu hỏi </label>
+                                <input type="text" class="form-control" id="m_name" placeholder="Nhập nội dung câu hỏi">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Danh sách câu trả lời </label>
+                                <input type="text" class="form-control" id="m_content" placeholder="Nhập list câu trả lời cách nhau bằng **">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-3" class="control-label">Câu trả lời </label>
+                                <input type="text" class="form-control" id="m_answer" placeholder="Đáp án A,B,C,D,...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label for="field-7" class="control-label">Khóa học </label>
+                                <select class="form-control" id="ddlProduct" placeholder="-----Chọn khóa học -----">
+                                    @foreach (var item in productList)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+
+                                    }
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Thoát</button>
+                <button type="button" id="btnAddNew" class="btn btn-info waves-effect waves-light">Tạo mới</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

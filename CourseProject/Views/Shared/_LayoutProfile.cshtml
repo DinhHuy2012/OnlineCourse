@@ -1,0 +1,187 @@
+﻿@using OnlineCourse.Common;
+
+@{
+    Layout = null;
+    var productcategory = (List<Model.Model.ProductCategory>)ViewBag.CategoryID;
+
+    var user = Session["USER_SESSION"] as UserLogin;
+
+    ViewBag.Title = "Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from eduport.webestica.com/admin-instructor-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Mar 2022 02:58:40 GMT -->
+<head>
+    <title>@ViewBag.Title</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Webestica.com">
+    <meta name="description" content="Eduport- LMS, Education and Course Theme">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/assets/client/images/logo-vip.png">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="~/assets/client/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/client/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/client/vendor/choices/css/choices.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/client/vendor/apexcharts/css/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/client/vendor/overlay-scrollbar/css/OverlayScrollbars.min.css">
+
+
+    @RenderSection("Childcss", required: false)
+
+    <!-- Theme CSS -->
+    <link id="style-switch" rel="stylesheet" type="text/css" href="~/assets/client/css/style.css">
+
+</head>
+
+<body>
+
+
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+
+        <!-- Sidebar START -->
+        <nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+            <!-- Navbar brand for xl START -->
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand" href="index.html">
+                    <img class="navbar-brand-item" src="~/assets/client/images/logo-vip.png" alt="" style="width:200px;height:100px">
+                </a>
+            </div>
+            <!-- Navbar brand for xl END -->
+
+            <div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+                <div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+                    <!-- Sidebar menu START -->
+                    <ul class="navbar-nav flex-column" id="navbar-sidebar">
+
+                        <!-- Menu item 1 -->
+                        <!-- Title -->
+                        <li class="nav-item ms-2 my-2">Pages</li>
+
+                        <!-- menu item 2 -->
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button" aria-expanded="false" aria-controls="collapsepage">
+                                <i class="bi bi-basket fa-fw me-2"></i>Khoá học của tôi
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
+                                <li class="nav-item"> <a class="nav-link" href="admin-course-list.html">All Courses</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="admin-course-category.html">Course Category</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="admin-course-detail.html">Course Detail</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu item 3 -->
+                        <!-- Menu item 4 -->
+                        @{
+                            string currentPage = HttpContext.Current.Request.Url.AbsolutePath;
+                        }
+
+                        <li class="nav-item @(currentPage.Contains("thong-tin-ca-nhan") ? "active" : "")">
+                            <a class="nav-link" href="thong-tin-ca-nhan" role="button" aria-expanded="true" aria-controls="collapseinstructors">
+                                <i class="fas fa-user-tie fa-fw me-2"></i>Thông tin cá nhân
+                            </a>
+                            <!-- Submenu -->
+                        </li>
+
+
+                        <!-- Menu item 5 -->
+                        <!-- Menu item 6 -->
+                        <!-- Menu item 7 -->
+                        <li class="nav-item"> <a class="nav-link" href="admin-setting.html"><i class="fas fa-user-cog fa-fw me-2"></i>Mật khẩu và bảo mật</a></li>
+
+                        <!-- Menu item 8 -->
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#collapseauthentication" role="button" aria-expanded="false" aria-controls="collapseauthentication">
+                                <i class="bi bi-lock fa-fw me-2"></i>Authentication
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="nav collapse flex-column" id="collapseauthentication" data-bs-parent="#navbar-sidebar">
+                                <li class="nav-item"> <a class="nav-link" href="sign-up.html">Sign Up</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="sign-in.html">Sign In</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="forgot-password.html">Forgot Password</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="admin-error-404.html">Error 404</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Title -->
+
+                    </ul>
+                    <!-- Sidebar menu end -->
+                    <!-- Sidebar footer START -->
+                    <div class="px-3 mt-auto pt-3">
+                        <div class="d-flex align-items-center justify-content-between text-primary-hover">
+                            <a class="h5 mb-0 text-body" href="admin-setting.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
+                                <i class="bi bi-gear-fill"></i>
+                            </a>
+                            <a class="h5 mb-0 text-body" href="trang-chu" data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            <style>
+                                .btn-danger {
+                                    background-color: #24292D;
+                                    border-color: #24292D;
+                                }
+                            </style>
+
+                            <form action="@Url.Action("Logout", "User")" method="post">
+                                <button type="submit" class="h5 mb-0 text-body btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+                                    <i class="bi bi-power" style="color: red;"></i>
+                                </button>
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                    <!-- Sidebar footer END -->
+
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar END -->
+        <!-- Page content START -->
+        @RenderBody();
+
+        <!-- Page main content END -->
+        <!-- Page content END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+    <!-- Popup modal for reviwe START -->
+    <!-- Popup modal for reviwe END -->
+    <!-- Back to top -->
+    <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+    <!-- Bootstrap JS -->
+    <script src="~/assets/client/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Vendors -->
+    <script src="~/assets/client/vendor/choices/js/choices.min.js"></script>
+    <script src="~/assets/client/vendor/apexcharts/js/apexcharts.min.js"></script>
+    <script src="~/assets/client/vendor/overlay-scrollbar/js/OverlayScrollbars.min.js"></script>
+
+    <!-- Template Functions -->
+    @RenderSection("ClientScript", required: false)
+    <script src="~/assets/client/js/functions.js"></script>
+
+
+</body>
+
+<!-- Mirrored from eduport.webestica.com/admin-instructor-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Mar 2022 02:58:40 GMT -->
+</html>
+

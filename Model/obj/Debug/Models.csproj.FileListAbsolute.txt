@@ -1,0 +1,16 @@
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\Model.dll.config
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\Model.dll
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\Model.pdb
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\EntityFramework.dll
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\PagedList.dll
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\PagedList.Mvc.dll
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\EntityFramework.xml
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\PagedList.xml
+D:\5th\Project PRN\OnlineCourse\Model\bin\Debug\PagedList.Mvc.xml
+D:\5th\Project PRN\OnlineCourse\Model\obj\Debug\Models.csproj.AssemblyReference.cache
+D:\5th\Project PRN\OnlineCourse\Model\obj\Debug\Models.csproj.CoreCompileInputs.cache
+D:\5th\Project PRN\OnlineCourse\Model\obj\Debug\Models.csproj.CopyComplete
+D:\5th\Project PRN\OnlineCourse\Model\obj\Debug\Model.dll
+D:\5th\Project PRN\OnlineCourse\Model\obj\Debug\Model.pdb

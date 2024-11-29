@@ -1,0 +1,14 @@
+D:\5th\Project PRN\OnlineCourse\Main\bin\Debug\net7.0\Main.exe
+D:\5th\Project PRN\OnlineCourse\Main\bin\Debug\net7.0\Main.deps.json
+D:\5th\Project PRN\OnlineCourse\Main\bin\Debug\net7.0\Main.runtimeconfig.json
+D:\5th\Project PRN\OnlineCourse\Main\bin\Debug\net7.0\Main.dll
+D:\5th\Project PRN\OnlineCourse\Main\bin\Debug\net7.0\Main.pdb
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.GeneratedMSBuildEditorConfig.editorconfig
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.AssemblyInfoInputs.cache
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.AssemblyInfo.cs
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.csproj.CoreCompileInputs.cache
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.dll
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\refint\Main.dll
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.pdb
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\Main.genruntimeconfig.cache
+D:\5th\Project PRN\OnlineCourse\Main\obj\Debug\net7.0\ref\Main.dll

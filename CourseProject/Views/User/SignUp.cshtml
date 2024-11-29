@@ -1,0 +1,130 @@
+﻿@model CourseProject.Models.SignUpModel
+
+@{
+    ViewBag.Title = "Đăng kí";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var productcategory = (List<Model.Model.ProductCategory>)ViewBag.CategoryID;
+
+}
+
+<main>
+    <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left -->
+                <div class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
+                    <div class="p-3 p-lg-5">
+                        <!-- Title -->
+                        <div class="text-center">
+                            <h2 class="fw-bold">Chào mừng bạn đến với thế giới học tập </h2>
+                            <p class="mb-0 h6 fw-light">Hãy học điều gì mới ngay bây giờ ! ...</p>
+                        </div>
+                        <!-- SVG Image -->
+                        <img src="~/assets/client/images/element/02.svg" class="mt-5" alt="">
+                        <!-- Info -->
+                        <div class="d-sm-flex mt-5 align-items-center justify-content-center">
+                            <!-- Avatar group -->
+                            <ul class="avatar-group mb-2 mb-sm-0">
+                                <li class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" src="~/assets/client/images/avatar/01.jpg" alt="avatar">
+                                </li>
+                                <li class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" src="~/assets/client/images/avatar/02.jpg" alt="avatar">
+                                </li>
+                                <li class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" src="~/assets/client/images/avatar/03.jpg" alt="avatar">
+                                </li>
+                                <li class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" src="~/assets/client/images/avatar/04.jpg" alt="avatar">
+                                </li>
+                            </ul>
+                            <!-- Content -->
+                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k+ thành viên đã tham gia các khóa học trực tuyến.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="col-12 col-lg-6 m-auto">
+                    <div class="row my-5">
+                        <div class="col-sm-10 col-xl-8 m-auto">
+                            @using (Html.BeginForm("SignUp", "User", FormMethod.Post))
+                            {
+                                <div class="mb-4">
+                                    <label class="form-label">Tài khoản  *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-envelope-fill"></i></span>
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Tài khoản", @type = "text", @autofocus = "autofocus" })
+                                    </div>
+                                </div>
+                                <!-- Password -->
+                                <div class="mb-4">
+                                    <label for="inputPassword5" class="form-label">Mật khẩu *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+                                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @type = "password", @autocomplete = "off" })
+                                    </div>
+
+                                </div>
+                                <div class="mb-4">
+                                    <label for="inputPassword5" class="form-label">Xác Nhận Mật khẩu *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+                                        @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", @placeholder = "Xác Nhận Mật khẩu", @type = "password", @autocomplete = "off" })
+                                    </div>
+
+                                </div>
+                                <div class="mb-4">
+                                    <label for="inputPassword5" class="form-label">Email *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @type = "email", @autocomplete = "off" })
+                                    </div>
+
+                                </div>
+                                <!-- Confirm Password -->
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(false, "", new { @class = "p-3 mb-2 bg-white text-danger" })
+                                <!-- Check box -->
+
+                                <!-- Button -->
+                                <div class="align-items-center mt-0">
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary mb-0" type="submit">Đăng kí</button>
+                                    </div>
+                                </div>
+                            }
+                            <!-- Email -->
+                            <!-- Form END -->
+                            <!-- Social buttons -->
+                            <div class="row">
+                                <!-- Divider with text -->
+                                <div class="position-relative my-4">
+                                    <hr>
+                                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Or</p>
+                                </div>
+                                <!-- Social btn -->
+                                <div class="col-xxl-6 d-grid">
+                                    <a href="#" class="btn bg-google mb-2 mb-xxl-0"><i class="fab fa-fw fa-google text-white me-2"></i>Signup with Google</a>
+                                </div>
+                                <!-- Social btn -->
+                                <div class="col-xxl-6 d-grid">
+                                    <a href="#" class="btn bg-facebook mb-0"><i class="fab fa-fw fa-facebook-f me-2"></i>Signup with Facebook</a>
+                                </div>
+                            </div>
+
+                            <!-- Sign up link -->
+                            <div class="mt-4 text-center">
+                                <span>Already have an account?<a href="/dang-nhap"> Đăng nhập</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+

@@ -1,0 +1,231 @@
+﻿@using OnlineCourse.Common;
+
+
+@{
+    var blogCategories = (List<Model.Model.BlogCategory>)ViewBag.BlogCategory;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = Session["USER_SESSION"] as UserLogin;
+    var items = ViewBag.Items as Model.Model.User;
+
+    ViewBag.Title = "Viết Blog";
+}
+@section Childcss
+{
+
+    <link href="~/assets/admin/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/datatables/scroller.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- App css -->
+    <link href="~/assets/admin/css/bootstrap.min.css" rel="stylesheet" />
+}
+<!-- =======================
+Page Banner END -->
+<!-- =======================
+Steps START -->
+<section class="pt-0">
+    <div class="container">
+        <div class="row">
+
+            <!-- Right sidebar START -->
+            <div class="col-xl-3">
+                <!-- Responsive offcanvas body START -->
+                <nav class="navbar navbar-light navbar-expand-xl mx-0">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <!-- Offcanvas header -->
+                        <div class="offcanvas-header bg-light">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <!-- Offcanvas body -->
+                        <div class="offcanvas-body p-3 p-xl-0">
+                            <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                <!-- Dashboard menu -->
+                                <div class="list-group list-group-dark list-group-borderless">
+                                    <a class="list-group-item" href="instructor-dashboard.html"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+                                    <a class="list-group-item" href="instructor-manage-course.html"><i class="bi bi-basket fa-fw me-2"></i>My Courses</a>
+                                    <a class="list-group-item" href="instructor-earning.html"><i class="bi bi-graph-up fa-fw me-2"></i>Earnings</a>
+                                    <a class="list-group-item" href="instructor-studentlist.html"><i class="bi bi-people fa-fw me-2"></i>Students</a>
+                                    <a class="list-group-item" href="instructor-order.html"><i class="bi bi-folder-check fa-fw me-2"></i>Orders</a>
+                                    <a class="list-group-item" href="instructor-review.html"><i class="bi bi-star fa-fw me-2"></i>Reviews</a>
+                                    <a class="list-group-item " href="/thong-tin-ca-nhan"><i class="bi bi-pencil-square fa-fw me-2"></i>Chỉnh sửa thông tin</a>
+                                    <a class="list-group-item active" href="/viet-blog"><i class="bi bi-pencil-square fa-fw me-2"></i>Viết Blog</a>
+
+                                    <a class="list-group-item" href="instructor-payout.html"><i class="bi bi-wallet2 fa-fw me-2"></i>Payouts</a>
+                                    <a class="list-group-item" href="instructor-setting.html"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Responsive offcanvas body END -->
+            </div>
+            <div class="col-xl-9">
+                <!-- Edit profile START -->
+                <div class="card bg-transparent border rounded-3">
+                    <!-- Card header -->
+                    <div class="card-header bg-transparent border-bottom">
+                        <h3 class="card-header-title mb-0">Viết Blog</h3>
+                    </div>  
+                    <!-- Card body START -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        @using (Html.BeginForm("AddNewBlog", "Profile", FormMethod.Post, new { @class = "row g-4" }))
+                        {
+
+                            <!-- Tên bài viết -->
+                            <div class="col-md-6">
+                                <label class="form-label">Tên bài viết</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="Name">
+                                </div>
+                            </div>
+
+                            <!-- Tên thể hiện -->
+                            <div class="col-12">
+                                <label class="form-label">Tên thể hiện</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="MetaTitle" placeholder="phải viết dưới dạng : online-cousera-learning nếu không sẽ không được phê duyệt">
+                                </div>
+                            </div>
+
+                            <!-- Mô tả -->
+                            <div class="col-12">
+                                <label class="form-label">Mô tả</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="Title">
+                                </div>
+                            </div>
+
+                            <!-- Thể loại -->
+                            <div class="col-6">
+                                <label class="form-label">Thể loại</label>
+                                <select class="form-control" name="CategoryBlogId">
+                                    @foreach (var item in blogCategories)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <!-- Ảnh Nền Blog -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Ảnh Nền Blog</label>
+                                    <input type="text" class="form-control" id="m_image" name="ImageBlog" placeholder="Hình ảnh">
+                                    &nbsp;<button id="btnSelectImage" type="button">Chọn ảnh</button>
+                                </div>
+                            </div>
+
+                            <!-- Nội dung Blog -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group no-margin">
+                                        <label for="field-5" class="control-label">Nội dung Blog</label>
+                                        <textarea class="form-control" id="m_detail" name="Content"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nút lưu -->
+                            <div class="d-sm-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mb-0">Thêm blog</button>
+                            </div>
+                        }
+
+
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div id="successMessage" class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div id="errorMessage" class="alert alert-danger">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+
+                        <!-- Profile picture -->
+
+
+                    </div>
+                    <!-- Card body END -->
+                </div>
+                <!-- Edit profile END -->
+
+
+            </div>
+            <!-- Right sidebar END -->
+            <!-- Main content START -->
+            <!-- Main content END -->
+        </div><!-- Row END -->
+    </div>
+</section>
+@section jsFooter
+
+{
+
+        <script src="~/assets/admin/libs/bootstrap/js/bootbox.min.js"></script>
+
+
+    <script src="~/assets/admin/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/admin/libs/jquery/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/assets/admin/libs/jquery-easing/jquery.easing.min.js"></script>
+
+    <script src="~/assets/admin/js/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/assets/admin/js/plugins/ckfinder/ckfinder.js"></script>
+    <script>
+
+        $('#btnSelectImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#m_image').val(url);
+            };
+            finder.popup();
+        })
+        $('.xyzpopup').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#e_image').val(url);
+            };
+            finder.popup();
+        })
+
+        var ckEditor = CKEDITOR.replace('m_detail', {
+            customConfig: '/assets/admin/js/plugins/ckeditor/config.js',
+        });
+        var ckEditor1 = CKEDITOR.replace('m_detailedit', {
+            customConfig: '/assets/admin/js/plugins/ckeditor/config.js',
+        });
+    </script>
+
+    <!-- third party js -->
+    <script src="~/assets/admin/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/assets/admin/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+    <script src="~/assets/admin/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/buttons.bootstrap4.min.js"></script>
+
+    <script src="~/assets/admin/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/admin/libs/pdfmake/pdfmake.min.js"></script>
+    <script src="~/assets/admin/libs/pdfmake/vfs_fonts.js"></script>
+
+    @*<script src="~/assets/admin/libs/datatables/buttons.html5.min.js"></script>*@
+    <script src="~/assets/admin/libs/datatables/buttons.print.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="~/assets/admin/libs/datatables/dataTables.scroller.min.js"></script>
+
+    <!-- Datatables init -->
+    <script src="~/assets/admin/js/pages/datatables.init.js"></script>
+    <script src="~/assets/admin/controller/productController.js"></script>
+
+}

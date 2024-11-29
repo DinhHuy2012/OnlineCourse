@@ -1,0 +1,322 @@
+﻿@model Model.Model.User
+@using OnlineCourse.Common;
+   
+@{
+    var productcategory = (List<Model.Model.ProductCategory>)ViewBag.CategoryID;
+    var listBlog = (List<Model.Model.Blog>)ViewBag.ListBlog;
+    var blogcategory = (List<Model.Model.BlogCategory>)ViewBag.BlogCategory;
+    var userid = (List<Model.Model.User>)ViewBag.AccountID;
+    var items = ViewBag.Items as Model.Model.User;
+    ViewBag.Title = "" + @Model.UserName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Childcss
+{
+    <link rel="stylesheet" href="~/assets/client/personalpage/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+}
+@section jsFooter
+{
+    <script src="~/assets/client/vendor/choices/js/choices.min.js"></script>
+}
+<style>
+    .personal-info {
+        background-color: #f0f2f5;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+        .personal-info h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+    .info-list > div {
+        font-size: 16px; /* Increase font size */
+        margin-bottom: 10px; /* Add some space between items */
+        color: #333;
+    }
+
+        .info-list > div a {
+            color: #0656f9; /* A vivid color for links */
+            text-decoration: none; /* Optional: removes underline from links */
+            font-size: 16px; /* Ensures links are the same size as text */
+        }
+
+            .info-list > div a:hover {
+                text-decoration: underline; /* Optional: underline on hover for better accessibility */
+            }
+
+    .info-list i {
+        margin-right: 8px; /* Space between icon and text */
+        color: #666; /* A softer color for the icons */
+    }
+
+    /* Responsive adjustments */
+
+
+</style>
+
+
+
+
+<div class="container">
+    <div class="banner" id="home">
+        <div class="content">
+            <h2>
+                @Model.Name <br />
+            </h2>
+            <p>
+                @Model.AboutMe
+            </p>
+
+            <div class="personal-info">
+                <h3>Giới thiệu</h3>
+                <div class="info-list">
+                    @if (!string.IsNullOrEmpty(Model.Name))
+                    {
+                        <div><i class="fas fa-user"></i> Họ tên: @Model.Name</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Email))
+                    {
+                        <div><i class="fas fa-envelope"></i> Email: @Model.Email</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Address))
+                    {
+                        <div><i class="fas fa-home"></i> Sống tại: @Model.Address</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Phone))
+                    {
+                        <div><i class="fas fa-phone"></i> Phone: @Model.Phone</div>
+                    }
+                    @if (Model.CreateDate != null)
+                    {
+                        <div><i class="fas fa-calendar-alt"></i> Tham gia vào: @Model.CreateDate</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Education))
+                    {
+                        <div><i class="fas fa-graduation-cap"></i> Đã học tại: @Model.Education</div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.UrlFacebook))
+                    {
+                        <div><a href="@Model.UrlFacebook" target="_blank"><i class="fa-brands fa-facebook-f"></i> @Model.UrlFacebook</a></div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.UrlInstagram))
+                    {
+                        <div><a href="@Model.UrlInstagram" target="_blank"><i class="fa-brands fa-instagram"></i> @Model.UrlInstagram</a></div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.UrlYoutube))
+                    {
+                        <div><a href="@Model.UrlYoutube" target="_blank"><i class="fa-brands fa-youtube"></i> @Model.UrlYoutube</a></div>
+                    }
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="avatar-per">
+            <img src="@Model.Avatar" alt="">
+
+        </div>
+
+    </div>
+</div>
+    <div id="skill">
+        <h1 class="title">SKILL</h1>
+        <div class="listSkill">
+            <div class="item">
+                <div class="name">HTML5</div>
+                <div class="evaluate" style="--point:80%"></div>
+            </div>
+            <div class="item">
+                <div class="name">CSS3</div>
+                <div class="evaluate" style="--point:70%"></div>
+            </div>
+            <div class="item">
+                <div class="name">Javascript</div>
+                <div class="evaluate" style="--point:80%"></div>
+            </div>
+            <div class="item">
+                <div class="name">PHP</div>
+                <div class="evaluate" style="--point:60%"></div>
+            </div>
+            <div class="item">
+                <div class="name">Laravel</div>
+                <div class="evaluate" style="--point:70%"></div>
+            </div>
+            <div class="item">
+                <div class="name">React JS</div>
+                <div class="evaluate" style="--point:90%"></div>
+            </div>
+            <div class="item">
+                <div class="name">Vue JS</div>
+                <div class="evaluate" style="--point:60%"></div>
+            </div>
+            <div class="item">
+                <div class="name">Angular JS</div>
+                <div class="evaluate" style="--point:70%"></div>
+            </div>
+        </div>
+    </div>
+    @{
+        int pageSize = 4; // Số lượng mục trên mỗi trang
+        int totalItems = listBlog.Where(x => x.UserID == @Model.Id).Count(); // Tổng số blog
+        int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize); // Tính tổng số trang
+
+        // Giả sử bạn lấy số trang hiện tại từ Query String, mặc định là 1 nếu không có thông tin
+        int currentPage = 1;
+        if (int.TryParse(Request.QueryString["page"], out int page))
+        {
+            currentPage = Math.Max(page, 1); // Đảm bảo số trang không nhỏ hơn 1
+        }
+
+        // Lấy blogs cho trang hiện tại
+        var blogsToShow = listBlog
+            .Where(x => x.UserID == @Model.Id)
+            .OrderByDescending(x => x.PublishedDate)
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+    }
+    <h1 id="contentStart" class="title">My Blog</h1>
+
+    <section class="position-relative pt-0 pt-lg-5">
+        <div class="container " > 
+            <div class="row g-4">
+                <!-- Card item START -->
+                @foreach (var item in blogsToShow)
+                {
+                    <div class="col-sm-6 col-lg-4 col-xl-3">
+                        <div class="card bg-transparent">
+                            <div class="overflow-hidden rounded-3">
+                                <img src="@item.ImageBlog" href="/chi-tiet-blog/@item.MetaTitle-@item.Id" class="card-img" alt="course image">
+                                <!-- Overlay -->
+                                <div class="bg-overlay bg-dark opacity-4"></div>
+                                <div class="card-img-overlay d-flex align-items-start p-3">
+                                    <!-- badge -->
+                                    @foreach (var category in blogcategory)
+                                    {
+                                        if (category.Id == @item.CategoryBlogId)
+                                        {
+                                            <a href="#" class="randomColorLink badge text-white">@category.Name</a>
+                                        }
+
+
+                                    }
+                                    <style>
+                                        .bg-custom-color1 {
+                                            background-color: #FFA07A;
+                                        }
+
+                                        .bg-custom-color2 {
+                                            background-color: brown;
+                                        }
+
+                                        .bg-custom-color3 {
+                                            background-color: red;
+                                        }
+                                    </style>
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var colors = ['bg-danger', 'bg-success', 'bg-primary', 'bg-warning', 'bg-info', 'bg-custom-color1', 'bg-custom-color2', 'bg-dark']; // Thêm 'bg-light' và 'bg-dark' vào danh sách
+                                            var links = document.querySelectorAll('.randomColorLink');
+
+                                            links.forEach(function (link) {
+                                                var randomColor = colors[Math.floor(Math.random() * colors.length)]; // Chọn một màu ngẫu nhiên cho mỗi liên kết
+                                                link.classList.add(randomColor);
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <!-- Title -->
+                                <h5 class="card-title"><a href="/chi-tiet-blog/@item.MetaTitle-@item.Id">@item.Name</a></h5>
+                                <p class="text-truncate-2">@item.Title</p>
+                                <!-- Info -->
+                                <div class="d-flex justify-content-between">
+                                    @foreach (var user in userid)
+                                    {
+                                        if (user.Id == @item.UserID)
+                                        {
+                                            <h6 class="mb-0"><a href="/trang-ca-nhan/@item.UserID">@user.Name</a></h6>
+                                        }
+
+
+                                    }
+                                    @{
+                                        // Giả sử 'item.PublishedDate' là thời điểm bài viết được đăng
+                                        var publishedDateTime = item.PublishedDate;
+                                        var currentTime = DateTime.Now;
+
+                                        // Tính toán khoảng thời gian giữa thời điểm hiện tại và thời điểm đăng bài
+                                        var timeSpan = currentTime - publishedDateTime;
+
+                                        string timeAgo;
+
+                                        if (timeSpan.TotalDays >= 1)
+                                        {
+                                            // Định dạng là số ngày trước, ví dụ: "1d ago"
+                                            timeAgo = $"{(int)timeSpan.TotalDays}d ago";
+                                        }
+                                        else if (timeSpan.TotalHours >= 1)
+                                        {
+                                            // Định dạng là số giờ trước, ví dụ: "1h ago"
+                                            timeAgo = $"{(int)timeSpan.TotalHours}h ago";
+                                        }
+                                        else if (timeSpan.TotalMinutes >= 1)
+                                        {
+                                            // Định dạng là số phút trước, ví dụ: "30m ago"
+                                            timeAgo = $"{(int)timeSpan.TotalMinutes}m ago";
+                                        }
+                                        else
+                                        {
+                                            // Định dạng là số giây trước nếu ít hơn một phút, ví dụ: "30s ago"
+                                            timeAgo = $"{(int)timeSpan.TotalSeconds}s ago";
+                                        }
+                                    }
+                                    <span class="small">@timeAgo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+                <!-- Card item END -->
+                <!-- Card item START -->
+                <!-- Card item END -->
+                <!-- Card item START -->
+                <!-- Card item END -->
+
+            </div> <!-- Row end -->
+            <!-- Pagination START -->
+            <nav class="d-flex justify-content-center mt-5" aria-label="navigation">
+                <ul class="pagination pagination-primary-soft rounded mb-0">
+                    <li class="page-item"><a class="page-link" href="?page=1#contentStart">Đầu</a></li>
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")"><a class="page-link" href="?page=@i#contentStart">@i</a></li>
+                    }
+                    <li class="page-item"><a class="page-link" href="?page=@totalPages#contentStart">Cuối</a></li>
+                </ul>
+            </nav>
+            <!-- Pagination END -->
+
+        </div>
+    </section>
+
+

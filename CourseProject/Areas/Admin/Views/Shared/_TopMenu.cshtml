@@ -1,0 +1,332 @@
+﻿
+@using OnlineCourse.Common;
+@{
+    var user = Session["USER_SESSION"] as UserLogin;
+
+}
+
+
+
+<div class="navbar-custom">
+    <div class="container-fluid">
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+
+            <li class="dropdown notification-list">
+                <!-- Mobile menu toggle-->
+                <a class="navbar-toggle nav-link">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+                <!-- End mobile menu toggle-->
+            </li>
+
+
+            <li class="dropdown notification-list d-none d-md-inline-block">
+                <a href="#" id="btn-fullscreen" class="nav-link waves-effect">
+                    <i class="mdi mdi-crop-free noti-icon"></i>
+                </a>
+            </li>
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="mdi mdi-bell noti-icon"></i>
+                    <span class="badge badge-danger rounded-circle noti-icon-badge">3</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="font-16 m-0">
+                            <span class="float-right">
+                                <a href="#" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div class="slimscroll noti-scroll">
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon">
+                                <i class="fa fa-user-plus text-info"></i>
+                            </div>
+                            <p class="notify-details">
+                                New user registered
+                                <small class="noti-time">You have 10 unread messages</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-success">
+                                <i class="far fa-gem text-primary"></i>
+                            </div>
+                            <p class="notify-details">
+                                New settings
+                                <small class="noti-time">There are new settings available</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-danger">
+                                <i class="far fa-bell text-danger"></i>
+                            </div>
+                            <p class="notify-details">
+                                Updates
+                                <small class="noti-time">There are 2 new updates available</small>
+                            </p>
+                        </a>
+                    </div>
+
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item text-center notify-item notify-all">
+                        See all notifications
+                    </a>
+
+                </div>
+            </li>
+
+
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="~/assets/client/images/avatar/@user.Avartar" alt="user-image" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                    <!-- item-->
+                    <div class="dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Welcome ! @user.UserName </h6>
+                    </div>
+
+                    <!-- item-->
+                    <a href="/thong-tin-ca-nhan" class="dropdown-item notify-item">
+                        <i class="mdi mdi-face-profile"></i>
+                        <span>Profile</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-settings"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-lock"></i>
+                        <span>Lock Screen</span>
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <!-- item-->
+                    <form id="logoutForm" action="/User/Logout" method="post">
+                        <button type="submit" class="dropdown-item bg-danger-soft-hover">
+                            <i class="bi bi-power fa-fw me-2"></i>Sign Out
+                        </button>
+                    </form>
+
+                </div>
+            </li>
+
+
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a href="/trang-chu" class="logo text-center logo-dark">
+                <span class="logo-lg">
+                    <img src="~/assets/client/images/logo-vip.png" alt="" height="50">
+                    <!-- <span class="logo-lg-text-dark">Moltran</span> -->
+                </span>
+                <span class="logo-sm">
+                    <!-- <span class="logo-lg-text-dark">M</span> -->
+                    <img src="~/assets/admin/images/logo-vip.png" alt="" height="50">
+                </span>
+            </a>
+
+            <a href="/trang-chu" class="logo text-center logo-light">
+                <span class="logo-lg">
+                    <img src="~/assets/client/images/logo-vip.png" alt="" height="50">
+                    <!-- <span class="logo-lg-text-dark">Moltran</span> -->
+                </span>
+                <span class="logo-sm">
+                    <!-- <span class="logo-lg-text-dark">M</span> -->
+                    <img src="~/assets/admin/images/logo-vip.png" alt="" height="50">
+                </span>
+            </a>
+        </div>
+        <!-- LOGO -->
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+
+            <li class="d-none d-sm-block">
+                <form class="app-search">
+                    <div class="app-search-box">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- end Topbar -->
+
+<div class="topbar-menu">
+    <div class="container-fluid">
+        <div id="navigation">
+            <!-- Navigation Menu-->
+            <ul class="navigation-menu">
+
+                <li class="has-submenu">
+                    <a href="/Admin/Home/Index">
+                        <i class="mdi mdi-home"></i>Dashboard
+                    </a>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#"> <i class="mdi mdi-palette"></i> Tài khoản   </a>
+                    <ul class="submenu">
+
+                        <li><a href="/Admin/User/Index">Quản Lý Tài Khoản</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#"> <i class="mdi mdi-invert-colors"></i> Khóa học </a>
+                    <ul class="submenu">
+                        <li><a href="/Admin/Product/Index">Quản Lý Khóa Học</a></li>
+                        <li><a href="/Admin/ProductCategory/Index">Thể loại</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#">
+                        <i class="mdi mdi-atom-variant"></i> Kiểm tra
+                    </a>
+                    <ul class="submenu">
+
+                        <li class="has-submenu">
+                            <a href="#"> Quản trị kiểm tra   <div class="arrow-down"></div></a>
+                            <ul class="submenu">
+                                <li><a href="/Admin/Exam/Index"> Quản trị bài kiểm tra </a></li>
+                                <li><a href="/Admin/Question/Index">Quản trị câu hỏi </a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu">
+                            <a href="#"> Forms <div class="arrow-down"></div></a>
+                            <ul class="submenu">
+                                <li><a href="form-elements.html">General Elements</a></li>
+                                <li><a href="form-validation.html">Form Validation</a></li>
+                                <li><a href="form-advanced.html">Advanced Form</a></li>
+                                <li><a href="form-wizard.html">Form Wizard</a></li>
+                                <li><a href="form-quilljs.html">Quilljs Editor</a></li>
+                                <li><a href="form-uploads.html">Multiple File Upload</a></li>
+                                <li><a href="form-xeditable.html">X-editable</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu">
+                            <a href="#"> Tables <div class="arrow-down"></div></a>
+                            <ul class="submenu">
+                                <li><a href="tables-basic.html">Basic Tables</a></li>
+                                <li><a href="tables-datatable.html">Data Table</a></li>
+                                <li><a href="tables-editable.html">Editable Table</a></li>
+                                <li><a href="tables-responsive.html">Responsive Table</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu">
+                            <a href="#"> Charts <div class="arrow-down"></div></a>
+                            <ul class="submenu">
+                                <li><a href="charts-morris.html">Morris Chart</a></li>
+                                <li><a href="charts-chartjs.html">Chartjs</a></li>
+                                <li><a href="charts-flot.html">Flot Chart</a></li>
+                                <li><a href="charts-peity.html">Peity Charts</a></li>
+                                <li><a href="charts-sparkline.html">Sparkline Charts</a></li>
+                                <li><a href="charts-radial.html">Radial charts</a></li>
+                                <li><a href="charts-other.html">Other Chart</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu">
+                            <a href="#"> Maps  <div class="arrow-down"></div></a>
+                            <ul class="submenu">
+                                <li><a href="maps-google.html"> Google Map</a></li>
+                                <li><a href="maps-vector.html"> Vector Map</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu">
+                            <a href="#"> Mail  <div class="arrow-down"></div></a>
+                            <ul class="submenu">
+                                <li><a href="mail-inbox.html">Inbox</a></li>
+                                <li><a href="mail-compose.html">Compose Mail</a></li>
+                                <li><a href="mail-read.html">View Mail</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#">
+                        <i class="mdi mdi-google-pages"></i> Kết quả
+                    </a>
+                    <ul class="submenu megamenu">
+                        <li>
+                            <ul>
+                                <li><a href="pages-profile.html">Profile</a></li>
+                                <li><a href="pages-timeline.html">Timeline</a></li>
+                                <li><a href="pages-invoice.html">Invoice</a></li>
+                                <li><a href="pages-email-template.html">Email template</a></li>
+                                <li><a href="pages-contact.html">Contact-list</a></li>
+                                <li><a href="pages-login.html">Login</a></li>
+                                <li><a href="pages-register.html">Register</a></li>
+                                <li><a href="pages-recoverpw.html">Recover Password</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><a href="pages-lock-screen.html">Lock Screen</a></li>
+                                <li><a href="pages-blank.html">Blank Page</a></li>
+                                <li><a href="pages-maintenance.html">Maintenance</a></li>
+                                <li><a href="pages-coming-soon.html">Coming-soon</a></li>
+                                <li><a href="pages-404.html">404 Error</a></li>
+                                <li><a href="pages-404_alt.html">404 alt</a></li>
+                                <li><a href="pages-500.html">500 Error</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#"> <i class="mdi mdi-table-plus"></i> Khác </a>
+                    <ul class="submenu">
+                        <li><a href="layouts-vertical.html">Vertical Layout</a></li>
+                        <li><a href="layouts-topbar-light.html">Topbar Light</a></li>
+                        <li><a href="layouts-center-menu.html">Center Menu</a></li>
+                        <li><a href="layouts-normal-header.html">Unsticky Header</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- End navigation menu -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- end #navigation -->
+    </div>
+    <!-- end container -->
+</div>
